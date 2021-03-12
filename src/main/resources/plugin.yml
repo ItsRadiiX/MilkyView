@@ -1,0 +1,18 @@
+main: com.itsradiix.milkyview.Main
+version: ${project.version}
+api-version: 1.16
+name: MilkyView
+authors: [ItsRadiiX]
+website: www.itsradiix.com
+description: View Distance Plugin made for MilkTruckers
+prefix: MilkyView
+load: POSTWORLD
+commands:
+  milkyview:
+    usage: /<command>
+    permission: milkyview.admin
+    description: MilkyView base command
+permissions:
+  milkyview.admin:
+    default: op
+    description: grants access to all MilkyView commands

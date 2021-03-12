@@ -1,0 +1,11 @@
+prefix: '&f&lMilky&9&lView'
+prefixChatSymbol: ' &8» &r'
+noConsole: 'Console cannot use that command!'
+noPermission: '&cYou do not have Permission to do that!'
+syntaxError: '&cYou have a syntax error! Please use:'
+reload: '&ahas reloaded!'
+
+helpHeader: '&8(&6*&8)&7==--&8( &e&l%command_name% &6&lHelp &8)&7--==&8(&6*&8)'
+helpFooter: '&8(&6*&8)&7==--&8( &3>---<*>---< &8)&7--==&8(&6*&8)'
+
+toggleDebugMode: '&7You have toggled debug mode to %status%'
