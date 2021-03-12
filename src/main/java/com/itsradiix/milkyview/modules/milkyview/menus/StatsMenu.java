@@ -1,6 +1,5 @@
 package com.itsradiix.milkyview.modules.milkyview.menus;
 
-import com.itsradiix.milkyview.Main;
 import com.itsradiix.milkyview.models.data.Utils;
 import com.itsradiix.milkyview.models.menus.PaginatedMenu;
 import com.itsradiix.milkyview.models.menus.PlayerMenuUtility;

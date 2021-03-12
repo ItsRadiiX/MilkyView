@@ -1,6 +1,5 @@
 package com.itsradiix.milkyview.modules.milkyview.commands.subcommands;
 
-import com.itsradiix.milkyview.Main;
 import com.itsradiix.milkyview.models.commands.SubCommand;
 import com.itsradiix.milkyview.models.data.FileManager;
 import com.itsradiix.milkyview.modules.milkyview.MilkyViewModule;

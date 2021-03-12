@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 public class PlayerMenuUtility {
 
+
 	private final Player owner;
 
 	private Player target;

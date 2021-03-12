@@ -1,10 +1,7 @@
 package com.itsradiix.milkyview.modules.milkyview;
 
 import com.itsradiix.milkyview.Main;
-import com.itsradiix.milkyview.events.InventoryClickListener;
-import com.itsradiix.milkyview.events.custom.FileReloadEvent;
 import com.itsradiix.milkyview.models.commands.HelpCommand;
-import com.itsradiix.milkyview.models.data.FileManager;
 import com.itsradiix.milkyview.models.data.SimpleFileManager;
 import com.itsradiix.milkyview.models.modules.Module;
 import com.itsradiix.milkyview.modules.milkyview.commands.MilkyViewCommand;

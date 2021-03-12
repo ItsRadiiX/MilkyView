@@ -3,18 +3,14 @@ package com.itsradiix.milkyview.modules.milkyview.menus;
 import com.itsradiix.milkyview.models.data.Utils;
 import com.itsradiix.milkyview.models.menus.Menu;
 import com.itsradiix.milkyview.models.menus.PlayerMenuUtility;
-import com.itsradiix.milkyview.modules.milkyview.MilkyViewModule;
 import com.itsradiix.milkyview.modules.milkyview.Threshold;
 import com.itsradiix.milkyview.modules.milkyview.ViewDistance;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Map;
 
 public class ThresholdAdditionalMenu extends Menu {
 
