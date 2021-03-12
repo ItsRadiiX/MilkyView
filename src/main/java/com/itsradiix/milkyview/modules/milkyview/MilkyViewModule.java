@@ -94,6 +94,7 @@ public class MilkyViewModule extends Module implements Listener {
 	public void reload(){
 		worldViewDistanceHashMap.clear();
 		fileManager.reload();
+		main.setWorldsList(Bukkit.getWorlds());
 		loadThresholds();
 		checkThreshold();
 	}
@@ -190,7 +191,9 @@ public class MilkyViewModule extends Module implements Listener {
 					tmp = viewDistance.getThresholdList().get(i).getViewDistance();
 				}
 			}
-			setViewDistance(w, tmp);
+			if (w.getViewDistance() != tmp){
+				setViewDistance(w, tmp);
+			}
 		}
 	}
 

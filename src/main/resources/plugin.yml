@@ -9,6 +9,7 @@ prefix: MilkyView
 load: POSTWORLD
 depend:
   - ProtocolLib
+  - Multiverse-Core
 commands:
   milkyview:
     usage: /<command>

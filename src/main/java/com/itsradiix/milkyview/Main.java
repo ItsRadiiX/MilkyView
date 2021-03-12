@@ -185,4 +185,8 @@ public final class Main extends JavaPlugin {
 			return playerMenuUtility;
 		}
 	}
+
+	public void setWorldsList(List<World> worldsList) {
+		this.worldsList = worldsList;
+	}
 }
