@@ -168,7 +168,6 @@ public class ThresholdMenu extends PaginatedMenu {
 				inventory.setItem(4, Utils.makeItem(material, "&b" + world.getName(),
 						"&7Loaded Chunks: &a" + world.getLoadedChunks().length,
 						"&7Player Amount: &a" + world.getPlayerCount(),
-						"&7Player Amount: &a" + world.getPlayerCount(),
 						"&7Entity Amount: &a" + world.getEntityCount(),
 						"&7Tile Amount: &a" + world.getTileEntityCount(),
 						"",
