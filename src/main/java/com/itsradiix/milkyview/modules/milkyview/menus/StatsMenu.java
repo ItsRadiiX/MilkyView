@@ -25,7 +25,7 @@ public class StatsMenu extends PaginatedMenu {
 
 	@Override
 	public String getMenuName() {
-		return "MilkyView statistics";
+		return "&fMilkyView statistics";
 	}
 
 	@Override
@@ -66,10 +66,7 @@ public class StatsMenu extends PaginatedMenu {
 	@Override
 	public void setMenuItems() {
 		addMenuBorder(39, 40, 41);
-		inventory.setItem(4, Utils.makeItem(Material.MILK_BUCKET, "&bMilkyView Statistics",
-				"&7This menu shows you some information",
-				"&7about each world that has been loaded.",
-				"&7You will also be able to set your thresholds."));
+		inventory.setItem(4, Utils.makeItem(Material.MILK_BUCKET, "&bMilkyView Statistics"));
 		setOuterFillerGlass();
 		updateItems();
 	}
@@ -78,6 +75,10 @@ public class StatsMenu extends PaginatedMenu {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				int totalPlayerAmount = 0;
+				int totalEntityAmount = 0;
+				int totalTileAmount = 0;
+				int totalLoadedChunks = 0;
 				if (!main.getWorldsList().isEmpty()) {
 					for (int i = 0; i < getMaxItemsPerPage(); i++) {
 						index = getMaxItemsPerPage() * page + i;
@@ -91,9 +92,18 @@ public class StatsMenu extends PaginatedMenu {
 									"&7Tile Amount: &a" + w.getTileEntityCount(),
 									"",
 									"&a&lCurrent view distance: &6" + w.getViewDistance()));
+							totalLoadedChunks = totalLoadedChunks + w.getLoadedChunks().length;
+							totalPlayerAmount = totalPlayerAmount + w.getPlayerCount();
+							totalEntityAmount = totalEntityAmount + w.getEntityCount();
+							totalTileAmount = totalTileAmount + w.getTileEntityCount();
 						}
 					}
 				}
+				inventory.setItem(4, Utils.makeItem(Material.MILK_BUCKET, "&bMilkyView Statistics",
+						"&7Total loaded Chunks: &a" + totalLoadedChunks,
+						"&7Total Player Amount: &a" + totalPlayerAmount,
+						"&7Total Entity Amount: &a" + totalEntityAmount,
+						"&7Total Tile Amount: &a" + totalTileAmount));
 				if (close){
 					cancel();
 				}

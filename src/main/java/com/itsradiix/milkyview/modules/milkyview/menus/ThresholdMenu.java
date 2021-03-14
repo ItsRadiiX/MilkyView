@@ -41,7 +41,7 @@ public class ThresholdMenu extends PaginatedMenu {
 
 	@Override
 	public String getMenuName() {
-		return "Thresholds overview";
+		return "&fThresholds overview";
 	}
 
 	@Override
