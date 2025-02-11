@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ThresholdMenu extends PaginatedMenu {
@@ -23,13 +24,14 @@ public class ThresholdMenu extends PaginatedMenu {
 	/**
 	 * ThresholdMenu Class, this is a PaginatedMenu showing all thresholds of a certain world and allows for creation / deletion
 	 * Please don't claim this Class as your own, a lot of love and hard work has gone into all of my Managers.
-	 *
+	 * <p>
 	 * Author: ItsRadiiX (Bryan Suk)
 	 */
 
 	World world;
 	Material material;
 	List<Threshold> thresholdList;
+	BukkitRunnable updater;
 
 	public ThresholdMenu(PlayerMenuUtility playerMenuUtility, World world) {
 		super(playerMenuUtility);
@@ -80,9 +82,19 @@ public class ThresholdMenu extends PaginatedMenu {
 					.title("Player Amount")
 					.text("[number]")
 					.plugin(main)
+					.onClick((slot, stateSnapshot) -> {
+						if (slot != AnvilGUI.Slot.OUTPUT){
+							return Collections.emptyList();
+						} else {
+							return List.of(AnvilGUI.ResponseAction.close());
+						}
+					})
 					.preventClose()
-					.onComplete((player, playerAmount) -> {
+					.onClose(stateSnapshot -> {
 						Bukkit.getScheduler().runTaskLater(main, () -> {
+
+							String playerAmount = stateSnapshot.getText();
+
 							try {
 								int pa = Integer.parseInt(playerAmount);
 								if (MilkyViewModule.doesPlayerAmountExist(world, pa)){
@@ -94,8 +106,18 @@ public class ThresholdMenu extends PaginatedMenu {
 											.title("View Distance")
 											.text("[number 2-32]")
 											.plugin(main)
+											.onClick((slot, onclick) -> {
+												if (slot != AnvilGUI.Slot.OUTPUT){
+													return Collections.emptyList();
+												} else {
+													return List.of(AnvilGUI.ResponseAction.close());
+												}
+											})
 											.preventClose()
-											.onComplete((p, viewDistance) -> {
+											.onClose(stateSnapshot2 -> {
+
+												String viewDistance = stateSnapshot2.getText();
+
 												try {
 													int vd = Integer.parseInt(viewDistance);
 													if (vd > 1 && vd < 33){
@@ -106,14 +128,12 @@ public class ThresholdMenu extends PaginatedMenu {
 												} catch (Exception ignored){
 													new ThresholdMenu(playerMenuUtility, world).silentOpen();
 												}
-												return AnvilGUI.Response.close();
 											}).open(playerMenuUtility.getOwner());
 								}
 							} catch (Exception ignored){
 								new ThresholdMenu(playerMenuUtility, world).silentOpen();
 							}
 						}, 1);
-						return AnvilGUI.Response.close();
 					}).open(playerMenuUtility.getOwner());
 		} else if (e.getSlot() == 4){
 			new AnvilGUI.Builder()
@@ -121,11 +141,18 @@ public class ThresholdMenu extends PaginatedMenu {
 					.title(world.getName() + " icon...")
 					.text(material.name())
 					.plugin(main)
+					.onClick((slot, stateSnapshot) -> {
+						if (slot != AnvilGUI.Slot.OUTPUT){
+							return Collections.emptyList();
+						} else {
+							return List.of(AnvilGUI.ResponseAction.close());
+						}
+					})
 					.preventClose()
-					.onComplete((player, material) -> {
-							MilkyViewModule.updateMaterial(world, material.toUpperCase());
+					.onClose(stateSnapshot -> {
+							MilkyViewModule.updateMaterial(world, material.toString().toUpperCase());
+							//  AnvilGUI.ResponseAction.close()
 							new ThresholdMenu(playerMenuUtility, world).silentOpen();
-						return AnvilGUI.Response.close();
 					}).open(playerMenuUtility.getOwner());
 		}
 
@@ -141,6 +168,11 @@ public class ThresholdMenu extends PaginatedMenu {
 		updateItems();
 		setItems();
 		setOuterFillerGlass();
+	}
+
+	@Override
+	public void onClose() {
+		updater.cancel();
 	}
 
 	public void setItems(){
@@ -162,7 +194,7 @@ public class ThresholdMenu extends PaginatedMenu {
 	}
 
 	public void updateItems() {
-		new BukkitRunnable() {
+		updater = new BukkitRunnable() {
 			@Override
 			public void run() {
 				inventory.setItem(4, Utils.makeItem(material, "&b" + world.getName(),
@@ -172,10 +204,9 @@ public class ThresholdMenu extends PaginatedMenu {
 						"&7Tile Amount: &a" + world.getTileEntityCount(),
 						"",
 						"&a&lCurrent view distance: &6" + world.getViewDistance()));
-				if (close){
-					cancel();
-				}
 			}
-		}.runTaskTimerAsynchronously(main, 0, 20);
+		};
+
+		updater.runTaskTimer(main, 0, 20);
 	}
 }

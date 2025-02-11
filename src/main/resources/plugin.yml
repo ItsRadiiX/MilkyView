@@ -1,14 +1,15 @@
 main: com.itsradiix.milkyview.Main
 version: ${project.version}
-api-version: 1.16
+api-version: 1.21
 name: MilkyView
 authors: [ItsRadiiX]
-website: www.itsradiix.com
+website: www.bryansuk.com
 description: View Distance Plugin made for MilkTruckers
 prefix: MilkyView
 load: POSTWORLD
 depend:
   - ProtocolLib
+softdepend:
   - Multiverse-Core
 commands:
   milkyview:

@@ -12,12 +12,15 @@ import org.bukkit.Sound;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class ThresholdAdditionalMenu extends Menu {
 
 	/**
 	 *  ThresholdAdditionalMenu Class, this is a Menu which allows the Player to change information of a certain Threshold.
 	 * Please don't claim this Class as your own, a lot of love and hard work has gone into all of my Managers.
-	 *
+	 * <p>
 	 * Author: ItsRadiiX (Bryan Suk)
 	 */
 
@@ -74,16 +77,20 @@ public class ThresholdAdditionalMenu extends Menu {
 						.text(String.valueOf(threshold.getPlayerAmount()))
 						.plugin(main)
 						.preventClose()
-						.onComplete((player, s) -> {
-							Bukkit.getScheduler().runTaskLater(main, () -> {
-								try {
-									int i = Integer.parseInt(s);
-									threshold.setPlayerAmount(i);
-								} catch (Exception ignored){}
-								new ThresholdAdditionalMenu(playerMenuUtility, threshold, index).silentOpen();
-							}, 1);
-							return AnvilGUI.Response.close();
-						}).open(playerMenuUtility.getOwner());
+						.onClick((slot, onclick) -> {
+							if (slot != AnvilGUI.Slot.OUTPUT){
+								return Collections.emptyList();
+							} else {
+								return List.of(AnvilGUI.ResponseAction.close());
+							}
+						})
+						.onClose(stateSnapshot -> Bukkit.getScheduler().runTaskLater(main, () -> {
+                            try {
+                                int i = Integer.parseInt(stateSnapshot.getText());
+                                threshold.setPlayerAmount(i);
+                            } catch (Exception ignored){}
+                            new ThresholdAdditionalMenu(playerMenuUtility, threshold, index).silentOpen();
+                        }, 1)).open(playerMenuUtility.getOwner());
 				break;
 			case 15:
 				new AnvilGUI.Builder()
@@ -92,16 +99,20 @@ public class ThresholdAdditionalMenu extends Menu {
 						.text(String.valueOf(threshold.getViewDistance()))
 						.plugin(main)
 						.preventClose()
-						.onComplete((player, s) -> {
-							Bukkit.getScheduler().runTaskLater(main, () -> {
-								try {
-									int i = Integer.parseInt(s);
-									threshold.setViewDistance(i);
-								} catch (Exception ignored){}
-								new ThresholdAdditionalMenu(playerMenuUtility, threshold, index).silentOpen();
-							}, 1);
-							return AnvilGUI.Response.close();
-						}).open(playerMenuUtility.getOwner());
+						.onClick((slot, onclick) -> {
+							if (slot != AnvilGUI.Slot.OUTPUT){
+								return Collections.emptyList();
+							} else {
+								return List.of(AnvilGUI.ResponseAction.close());
+							}
+						})
+						.onClose(stateSnapshot -> Bukkit.getScheduler().runTaskLater(main, () -> {
+                            try {
+                                int i = Integer.parseInt(stateSnapshot.getText());
+                                threshold.setViewDistance(i);
+                            } catch (Exception ignored){}
+                            new ThresholdAdditionalMenu(playerMenuUtility, threshold, index).silentOpen();
+                        }, 1)).open(playerMenuUtility.getOwner());
 				break;
 			case 18:
 				new ThresholdMenu(playerMenuUtility, threshold.getViewDistanceClass().getWorld()).switchOpen();
@@ -128,5 +139,10 @@ public class ThresholdAdditionalMenu extends Menu {
 		inventory.setItem(11, Utils.makeItem(Material.PLAYER_HEAD, "&aPlayer amount: &6" + threshold.getPlayerAmount(), "&8Click to set player amount."));
 		inventory.setItem(15, Utils.makeItem(Material.BEACON, "&aView Distance: &6" + threshold.getViewDistance(), "&8Click to set view distance."));
 		setOuterFillerGlass();
+	}
+
+	@Override
+	public void onClose() {
+
 	}
 }

@@ -27,7 +27,6 @@ public abstract class Menu implements InventoryHolder{
 
 	boolean silentOpening = false;
 	boolean switchOpening = false;
-	protected boolean close = false;
 
 	protected int rows = getSlots()/9;
 	protected int inBetweenRows = rows-2;
@@ -53,11 +52,11 @@ public abstract class Menu implements InventoryHolder{
 
 	public abstract void setMenuItems();
 
+	public abstract void onClose();
+
 	public void open() {
-		Bukkit.getScheduler().runTaskAsynchronously(main, () -> {
-			setMenuItems();
-			Bukkit.getScheduler().runTask(main, () -> openInventory(playerMenuUtility.getOwner()));
-		});
+		setMenuItems();
+		openInventory(playerMenuUtility.getOwner());
 	}
 
 	public void silentOpen(){
@@ -147,7 +146,7 @@ public abstract class Menu implements InventoryHolder{
 	}
 
 	public void setClosed(){
-		close = true;
+		onClose();
 	}
 
 }

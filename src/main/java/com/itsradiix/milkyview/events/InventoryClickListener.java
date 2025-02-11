@@ -14,13 +14,13 @@ public class InventoryClickListener implements Listener {
 	public void onMenuClick(org.bukkit.event.inventory.InventoryClickEvent e){
 		InventoryHolder holder = e.getInventory().getHolder();
 
-		if (holder instanceof Menu) {
+		if (holder instanceof Menu menu) {
 			e.setCancelled(true);
 			if (e.getCurrentItem() == null) {
 				return;
 			}
-			Menu menu = (Menu) holder;
-			menu.handleMenu(e);
+
+            menu.handleMenu(e);
 		}
 
 	}
@@ -29,9 +29,8 @@ public class InventoryClickListener implements Listener {
 	public void onMenuClose(InventoryCloseEvent e){
 		InventoryHolder holder = e.getInventory().getHolder();
 
-		if (holder instanceof Menu) {
-			Menu menu = (Menu) holder;
-			menu.setClosed();
+		if (holder instanceof Menu menu) {
+            menu.setClosed();
 		}
 	}
 
