@@ -76,7 +76,6 @@ public class ThresholdAdditionalMenu extends Menu {
 						.title("Player Amount")
 						.text(String.valueOf(threshold.getPlayerAmount()))
 						.plugin(main)
-						.preventClose()
 						.onClick((slot, onclick) -> {
 							if (slot != AnvilGUI.Slot.OUTPUT){
 								return Collections.emptyList();
@@ -98,7 +97,6 @@ public class ThresholdAdditionalMenu extends Menu {
 						.title("View Distance")
 						.text(String.valueOf(threshold.getViewDistance()))
 						.plugin(main)
-						.preventClose()
 						.onClick((slot, onclick) -> {
 							if (slot != AnvilGUI.Slot.OUTPUT){
 								return Collections.emptyList();

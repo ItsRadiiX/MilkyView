@@ -89,7 +89,6 @@ public class ThresholdMenu extends PaginatedMenu {
 							return List.of(AnvilGUI.ResponseAction.close());
 						}
 					})
-					.preventClose()
 					.onClose(stateSnapshot -> {
 						Bukkit.getScheduler().runTaskLater(main, () -> {
 
@@ -113,7 +112,6 @@ public class ThresholdMenu extends PaginatedMenu {
 													return List.of(AnvilGUI.ResponseAction.close());
 												}
 											})
-											.preventClose()
 											.onClose(stateSnapshot2 -> {
 
 												String viewDistance = stateSnapshot2.getText();
@@ -148,9 +146,8 @@ public class ThresholdMenu extends PaginatedMenu {
 							return List.of(AnvilGUI.ResponseAction.close());
 						}
 					})
-					.preventClose()
 					.onClose(stateSnapshot -> {
-							MilkyViewModule.updateMaterial(world, material.toString().toUpperCase());
+							MilkyViewModule.updateMaterial(world, stateSnapshot.getText().toUpperCase());
 							//  AnvilGUI.ResponseAction.close()
 							new ThresholdMenu(playerMenuUtility, world).silentOpen();
 					}).open(playerMenuUtility.getOwner());
